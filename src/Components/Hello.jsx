@@ -3,7 +3,7 @@ import './Hello.css'
 
 export const Hello = () => {
   return (
-    <p>Hello this is me</p>
+    <p>Hello, AJaya</p>
   )
 }
 
