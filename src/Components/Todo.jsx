@@ -38,8 +38,8 @@ import './Todo.css'
                 <li>Cook food.</li>
                 <li>Feed the dog.</li>
             </ul>
-            <botton name="romoveable" value='remove All'></botton>
         </div>
+        <input type="button" className='todo-removeall' value="Remove All"/>
     </div>
   )
 }
