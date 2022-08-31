@@ -1,7 +1,24 @@
 import React from 'react'
 import './Todo.css'
+// import { useState } from 'react';
 
-const Todo = () => {
+ const Todo = () => {
+//     const [input, setInput] = useState([]);
+//   const [todos, setTodos] = useState([
+//     "Take a walk.",
+//     "Buy grocery.",
+//     "Read a book.",
+//     "Take a nap.",
+//   ]);
+
+//   console.log(input);
+//   console.log(todos);
+
+//   function handleSubmit() {
+//     setTodos([...todos, input]);
+//     setInput('');
+//   }
+  
   return (
     <div className='todo'>
         <div className='todoLogo'>
@@ -21,6 +38,7 @@ const Todo = () => {
                 <li>Cook food.</li>
                 <li>Feed the dog.</li>
             </ul>
+            <botton name="romoveable" value='remove All'></botton>
         </div>
     </div>
   )
