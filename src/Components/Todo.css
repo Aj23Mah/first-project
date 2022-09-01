@@ -59,3 +59,19 @@
 .todo-removeall:hover {
     background-color: #f00;
 }
+.delete {
+    padding: 2px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+}
+.update{
+    padding: 2px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: blue;
+    color: #fff;
+    border: none;
+}

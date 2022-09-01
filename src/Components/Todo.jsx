@@ -18,10 +18,25 @@ import { useState } from 'react';
     setTodos([...todos, inputData]);
     setInputData('');
   }
+
   // Remove: remove all data at once.
   function removeall() {
     setTodos([]);
   }
+
+  //Delete: delete the individual todo list
+  function deleteTodo(index) {
+    const newTodos = [...todos]
+    newTodos.splice(index, 1)
+    setTodos(newTodos)
+}
+
+//Delete: delete the individual todo list
+function updateTodo(index) {
+    const newTodos = [...todos]
+    newTodos.splice(index, 1, inputData)
+    setTodos(newTodos)
+}
   
   return (
     <div className='todo'>
@@ -47,12 +62,26 @@ import { useState } from 'react';
         <div className='todo-list'>
             <h2>Task Lists</h2>
             <ul>
-                {
-                todos.map((todo) => (
-                    <li>{todo}</li>
-                ))
-                }
-            </ul>
+                    {
+                        todos.map((todo) => (
+                            <li>
+                                {todo}
+                                <span
+                                    className="delete"
+                                    onClick={() => deleteTodo(todos.indexOf(todo))}
+                                >
+                                    X
+                                </span>
+                                <span
+                                    className="update"
+                                    onClick={() => updateTodo(todos.indexOf(todo))}
+                                >
+                                    U
+                                </span>
+                            </li>
+                        ))
+                    }
+                </ul>
         </div>
         <input type="button" className='todo-removeall' value="Remove All" onClick={removeall}/>
         
