@@ -27,6 +27,10 @@
     background-color: #143cde;
     color: #fff;
 }
+.button:hover {
+    color: white;
+    background-color: black;
+}
 
 .todo-lists h3 {
     color: #f00;
