@@ -1,92 +1,108 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Todo.css'
-import { useState } from 'react';
 
- const Todo = () => {
-    const [inputData, setInputData] = useState('');
-    const [todos, setTodos] = useState([
-        "Take a walk.",
-        "Buy grocery.",
-        "Read a book.",
-        "Take a nap."
-    ]);
+const Todo = () => {
+    const [inputData, setInputData] = useState('')
+    const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('lists')) || []);
 
-  console.log(inputData);
-//   console.log(todos);
+    console.log(inputData);
 
-  function handleSubmit() {
-    setTodos([...todos, inputData]);
-    setInputData('');
-  }
+    //use effect to set the todos array to local storage
+    useEffect(() => {
+        localStorage.setItem('lists', JSON.stringify(todos));
+      }, [todos]);
 
-  // Remove: remove all data at once.
-  function removeall() {
-    setTodos([]);
-  }
+    // use effect to fetch data from local storage
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('lists'));
+        if (data) {
+            setTodos(data);
+        }
+    } , [])
 
-  //Delete: delete the individual todo list
-  function deleteTodo(index) {
-    const newTodos = [...todos]
-    newTodos.splice(index, 1)
-    setTodos(newTodos)
-}
+    // Create: Add new items(tasks) to the existing todo array.
+    // Arrow function can also be used
+    // const handleSubmit = ()=> {}
+    function handleSubmit() {
+        setTodos([...todos, inputData])
+        setInputData('')
+    }
 
-//Delete: delete the individual todo list
-function updateTodo(index) {
-    const newTodos = [...todos]
-    newTodos.splice(index, 1, inputData)
-    setTodos(newTodos)
-}
-  
-  return (
-    <div className='todo'>
-        <div className='todo-logo'>
-            <h1>TODO App</h1>
-        </div>
-        <div className='todo-form'>
-            <form>
-                <input 
-                type="text" 
-                className='input' 
-                placeholder='Add items'
-                value={inputData} 
-                onChange = {(e) => setInputData(e.target.value)} 
+    // Remove: remove all data at once.
+    function removeAll() {
+        setTodos([]);
+    }
+
+    //Delete: delete the individual todo list
+    function deleteTodo(index) {
+        const newTodos = [...todos]
+        newTodos.splice(index, 1)
+        setTodos(newTodos)
+    }
+
+    // Update: update the individual todo list
+    function updateTodo(index) {
+        const newTodos = [...todos]
+        newTodos.splice(index, 1, inputData)
+        setTodos(newTodos)
+        setInputData('')
+    }
+
+    return (
+        <div className='todo'>
+            <div className="todo-logo">
+                <h3>Todo App</h3>
+            </div>
+
+            <div className="todo-form">
+                <input
+                    type="text"
+                    className="input"
+                    placeholder='Add items'
+                    value={inputData}
+                    onChange={(e) => setInputData(e.target.value)}
                 />
-                <input 
-                type="button" className='button' 
-                value="Add Todo" 
-                disabled={!inputData} 
-                onClick={handleSubmit} />
-            </form>
-        </div>
-        <div className='todo-list'>
-            <h2>Task Lists</h2>
-            <ul>
-                    {
-                        todos.map((todo) => (
-                            <li>
-                                {todo}
-                                <span
-                                    className="delete"
-                                    onClick={() => deleteTodo(todos.indexOf(todo))}
-                                >
-                                    X
-                                </span>
-                                <span
-                                    className="update"
-                                    onClick={() => updateTodo(todos.indexOf(todo))}
-                                >
-                                    U
-                                </span>
-                            </li>
-                        ))
-                    }
+                <input
+                    type="button"
+                    className="button"
+                    value="Add Todo"
+                    disabled={!inputData}
+                    onClick={handleSubmit}
+                />
+            </div>
+
+            <div className="todo-lists">
+                <h3>Task Lists</h3>
+                <ul>
+
+                    {todos.map((todo, index) => (
+                        <li key={index}>
+                            <span>{todo}</span>
+                            <input
+                                type="button"
+                                className="update"
+                                value="Update"
+                                onClick={() => updateTodo(index)}
+                            />
+                            <input
+                                type="button"
+                                className="delete"
+                                value="Delete"
+                                onClick={() => deleteTodo(index)}
+                            />  
+                        </li>
+                    ))}
                 </ul>
+            </div>
+
+            <input
+                type="button"
+                className='todo-removeall'
+                value="Remove All"
+                onClick={removeAll}
+            />
         </div>
-        <input type="button" className='todo-removeall' value="Remove All" onClick={removeall}/>
-        
-    </div>
-  )
+    )
 }
 
 export default Todo
